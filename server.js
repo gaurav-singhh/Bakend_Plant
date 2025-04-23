@@ -11,7 +11,7 @@ const PORT = 5000;
 // Enable CORS for your frontend origin
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://frontend-plant.vercel.app/",
   })
 );
 
