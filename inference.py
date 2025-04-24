@@ -18,8 +18,8 @@ class_names = [
     "Cherry_(including_sour)___Powdery_mildew",
     "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
     "Corn_(maize)___Common_rust_",
-    "Corn_(maize)___healthy",
     "Corn_(maize)___Northern_Leaf_Blight",
+    "Corn_(maize)___healthy",
     "Grape___Black_rot",
     "Grape___Esca_(Black_Measles)",
     "Grape___healthy",
@@ -79,10 +79,12 @@ def infer(image_path):
         tensor = transform(img).unsqueeze(0)
         with torch.no_grad():
             output = model(tensor)
-        pred_class_idx = int(output.argmax(dim=1).item())
-        confidence = float(output.softmax(dim=1)[0][pred_class_idx].item())
-        class_label = class_names[pred_class_idx]
-        return {'prediction': class_label, 'confidence': confidence}
+        pred_class_idx = int(output.argmax(dim=1).item())  # Get the predicted class index
+        confidence = float(output.softmax(dim=1)[0][pred_class_idx].item())  # Get the confidence score
+        class_label = class_names[pred_class_idx]  # Get the class name using the index
+
+        # Return both the class number (index) and the class name
+        return {'class_number': pred_class_idx, 'class_name': class_label, 'confidence': confidence}
     except Exception as e:
         err = {'error': f'Inference failed: {str(e)}'}
         print(json.dumps(err), file=sys.stderr)

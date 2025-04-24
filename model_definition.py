@@ -4,7 +4,7 @@ import torch.nn as nn
 from torchvision.models import efficientnet_b0, EfficientNet_B0_Weights
 
 class PlantDiseaseModel(nn.Module):
-    def __init__(self, num_classes=38, unfreeze_layers=3, dropout_prob=0.3):
+    def __init__(self, num_classes=38, unfreeze_layers=4, dropout_prob=0.3):
         super().__init__()
         # All diagnostic/logging prints go to stderr to avoid polluting stdout
         print("Initializing EfficientNet-B0 model with ImageNet weights", file=sys.stderr)
